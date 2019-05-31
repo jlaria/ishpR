@@ -1,0 +1,7 @@
+useDynLib(ishpR, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
+
+S3method(print, ishpR)
+S3method(plot, ishpR)
+S3method(predict, ishpR)

@@ -1,0 +1,18 @@
+Package: ishpR
+Type: Package
+Title: Iterative search for hyper-parameters in penalized regression models
+Version: 1.0.0
+Date: 2019-05-20
+Author: Juan C. Laria, M. Carmen Aguilera Morillo, Rosa E. Lillo
+Maintainer: Juan C. Laria <juancarlos.laria@uc3m.es>
+Description: Implements a standard solver for lasso, group-lasso and sparse group-lasso regularization in linear models, 
+          with arbitrary loss functions (e.g. mean squared error, binary cross-entropy, cox proportional hazard models log-likelihood). 
+          In addition, several hyper-parameter search methods are included. 
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.0)
+Suggests:
+    ggplot2,
+    gridExtra,
+    dplyr,
+    magrittr
+LinkingTo: Rcpp, RcppArmadillo
