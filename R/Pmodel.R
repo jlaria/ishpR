@@ -285,16 +285,16 @@ plot.ishpR = function(pmodel,
         included_ = sum(abs(pmodel$beta) > 0)
         excluded_ = length(pmodel$beta) - included_
         
-        plot_all = ggplot()+
-          aes(x = "", y = c(included_, excluded_),
+        plot_all = ggplot2::ggplot()+
+          ggplot2::aes(x = "", y = c(included_, excluded_),
               fill = c("included", "excluded"))+
-          geom_bar(stat = "identity")+
-          coord_flip()+
-          labs(y = "Number of variables", 
+          ggplot2::geom_bar(stat = "identity")+
+          ggplot2::coord_flip()+
+          ggplot2::labs(y = "Number of variables", 
                title = "Overall view")+
-          guides(fill = F)+
-          scale_fill_brewer(palette = "Greys")+
-          theme_minimal()
+          ggplot2::guides(fill = F)+
+          ggplot2::scale_fill_brewer(palette = "Greys")+
+          ggplot2::theme_minimal()
         
       if(pmodel$regularization == "lasso"){
           plot_all
@@ -322,17 +322,17 @@ plot.ishpR = function(pmodel,
           col = 3
         }
         
-        plot_gr  = ggplot(df)+
-          aes(x = "", y = count, 
+        plot_gr  = ggplot2::ggplot(df)+
+          ggplot2::aes(x = "", y = count, 
               fill = type)+
-          geom_bar(stat = "identity")+
-          coord_flip()+
-          labs(y = "", fill = "Status", title = "Groupwise view")+
-          theme_minimal()+
-          theme(legend.position = "top")+
-          scale_fill_brewer(palette = "Greys")+
-          facet_wrap(~gr, ncol = col)
-        grid.arrange(plot_gr, plot_all, heights = c(3,1))
+          ggplot2::geom_bar(stat = "identity")+
+          ggplot2::coord_flip()+
+          ggplot2::labs(y = "", fill = "Status", title = "Groupwise view")+
+          ggplot2::theme_minimal()+
+          ggplot2::theme(legend.position = "top")+
+          ggplot2::scale_fill_brewer(palette = "Greys")+
+          ggplot2::facet_wrap(~gr, ncol = col)
+        gridExtra::grid.arrange(plot_gr, plot_all, heights = c(3,1))
       }
     }
   )
