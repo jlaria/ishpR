@@ -87,7 +87,7 @@ arma::vec optimization_internal_simon_nesterov(
     theta_new = Update(beta, g, t, lambda_1, lambda_2, gamma_k);
     while ( arma::as_scalar(R(theta_new, X_k, eta_minus_k, y)) > 
               arma::as_scalar(R_beta + g.t()*(beta - theta_new) + 1/(2*t)*arma::sum(arma::square(beta-theta_new)))){
-      t = 0.8*t;
+      t = 0.9*t;
       theta_new = Update(beta, g, t, lambda_1, lambda_2, gamma_k);
       // theta_new.print("search t theta_new:");
     }
@@ -101,7 +101,7 @@ arma::vec optimization_internal_simon_nesterov(
     
     l++;
     
-  }while(!arma::approx_equal(theta_new, theta_old, "absdiff", 1e-4) && l < MAX_ITER_INNER);
+  }while(!arma::approx_equal(theta_new, theta_old, "absdiff", 0.001) && l < MAX_ITER_INNER);
   
   return beta;
 }
@@ -174,7 +174,7 @@ arma::vec optimization_external_simon_nesterov(
       }
     }
     iter++;
-  }while(!arma::approx_equal(beta, beta_old, "absdiff", 1e-4) && iter < MAX_ITER);
+  }while(!arma::approx_equal(beta, beta_old, "absdiff", 0.001) && iter < MAX_ITER);
   return beta;
 }
 
@@ -307,6 +307,7 @@ Rcpp::List isgl_rs(
     gammak = get_lambda2gammak_max(R, grad_R, X_t, y_t, grp_len, lambda1) % arma::randu(J);
     // Compute the sgl solution
     beta = optimization_external_simon_nesterov(R, grad_R, update_sparse_group_lasso, fit["beta"], lambda1, lambda2, gammak, X_t, y_t, grp_len, t0);
+    //beta = optimization_external_simon_nesterov(R, grad_R, update_sparse_group_lasso, beta, lambda1, lambda2, gammak, X_t, y_t, grp_len, t0);
     
     // Compute the validation error
     risk_v = R_v(beta, X_v, y_v);
@@ -421,7 +422,7 @@ Rcpp::List igl_rs(
     gammak = get_lambda2gammak_max(R, grad_R, X_t, y_t, grp_len, lambda1) % arma::randu(J);
     // Compute the sgl solution
     beta = optimization_external_simon_nesterov(R, grad_R, update_sparse_group_lasso, fit["beta"], lambda1, lambda2, gammak, X_t, y_t, grp_len, t0);
-    
+    //beta = optimization_external_simon_nesterov(R, grad_R, update_sparse_group_lasso, beta, lambda1, lambda2, gammak, X_t, y_t, grp_len, t0);
     // Compute the validation error
     risk_v = R_v(beta, X_v, y_v);
     

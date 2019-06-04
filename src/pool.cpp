@@ -6,8 +6,8 @@ const int TYPE_LINEAR = 0;
 const int TYPE_LOGIT = 1;
 const int TYPE_COX = 2;
 
-const int MAX_ITER = 20;
-const int MAX_ITER_INNER = 200;
+const int MAX_ITER = 100;
+const int MAX_ITER_INNER = 500;
 
 const int LOSS_MSE = 0;
 const int LOSS_LOGISTIC = 1;
@@ -52,7 +52,7 @@ Rcpp::List isglasso(
   case LOSS_COX:
     R = R_coxph;
     grad_R = grad_R_coxph;
-    t0 = 0.2;
+    t0 = 0.05;
     break;
   default:
     R = R_linear;
